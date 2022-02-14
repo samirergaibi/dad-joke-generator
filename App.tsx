@@ -3,14 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/HomeScreen";
 import SearchScreen from "./components/SearchScreen";
 
-const headerStyles = {
-  headerStyle: {
-    backgroundColor: "steelblue",
-  },
-  headerTintColor: "white",
-  headerTitleStyle: { fontWeight: "bold" },
-};
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
