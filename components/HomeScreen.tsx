@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { ArrowRight } from "../icons";
 import { Screens } from "../types";
-import dadJokeImage from "../assets/icon.jpeg";
+import dadJokeImage from "../assets/icon.png";
 
 type Props = NativeStackScreenProps<Screens, "Home">;
 

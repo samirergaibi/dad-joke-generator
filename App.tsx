@@ -3,21 +3,42 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/HomeScreen";
 import SearchScreen from "./components/SearchScreen";
 
+const headerStyles = {
+  headerStyle: {
+    backgroundColor: "steelblue",
+  },
+  headerTintColor: "white",
+  headerTitleStyle: { fontWeight: "bold" },
+};
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "steelblue",
+          },
+          headerTintColor: "white",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ animation: "slide_from_left" }}
+          options={{
+            animation: "slide_from_left",
+          }}
         />
         <Stack.Screen
           name="Search"
           component={SearchScreen}
-          options={{ animation: "slide_from_right" }}
+          options={{
+            animation: "slide_from_right",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
