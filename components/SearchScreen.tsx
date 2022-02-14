@@ -5,6 +5,7 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -21,12 +22,12 @@ type Props = NativeStackScreenProps<Screens, "Search">;
 
 const SearchScreen = ({ navigation }: Props) => {
   const [inputValue, setInputValue] = useState("");
-  const [isDoneFetching, setIsDoneFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [jokes, setJokes] = useState<Joke[]>([]);
 
   const getSearchValues = async (searchTerm: string) => {
     try {
-      setIsDoneFetching(false);
+      setIsFetching(true);
       const resp = await fetch(
         `https://icanhazdadjoke.com/search?term=${searchTerm}`,
         {
@@ -36,9 +37,10 @@ const SearchScreen = ({ navigation }: Props) => {
         }
       );
       const data = await resp.json();
-      setIsDoneFetching(true);
+      setIsFetching(false);
       setJokes(data.results);
     } catch (error) {
+      setIsFetching(false);
       console.error(error);
     }
   };
@@ -52,10 +54,8 @@ const SearchScreen = ({ navigation }: Props) => {
     if (inputValue.length < 2) {
       return;
     }
-    console.log(inputValue);
     debouncedGetSearchValues(inputValue);
   }, [inputValue]);
-  console.log(jokes.length);
 
   return (
     <>
@@ -67,7 +67,11 @@ const SearchScreen = ({ navigation }: Props) => {
           value={inputValue}
           onChangeText={setInputValue}
         />
-        {isDoneFetching && (
+        {isFetching ? (
+          <View>
+            <ActivityIndicator color="#fffff" />
+          </View>
+        ) : (
           <Text style={styles.text}>{jokes.length} search results</Text>
         )}
       </View>
@@ -133,6 +137,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#272727",
     alignItems: "center",
     justifyContent: "center",
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
   },
 });
 
